@@ -12,6 +12,7 @@
 #pragma once
 
 #include "Global/TimeManager.hpp"
+#include "Resource/Shelf.hpp"
 
 #include <cstdlib>
 #include <iostream>
@@ -41,8 +42,9 @@ void show_task_info() {
     cout << "\t 4. 数据分析 " << endl;
     cout << "\t 5. 更新日期 " << endl;
     cout << "\t 6. 退出程序 " << endl;
-
     cout << endl;
+
+    cout << ">>> ";
 }
 
 string get_input() {
@@ -66,6 +68,7 @@ void select_task() {
             // TODO(eden): analyze
         } else if (input == "5") {
             TimeManager::update_time();
+            Shelf::remove_outdated();
         } else if (input == "6") {
             cout << "谢谢使用..." << endl;
             cout << endl;

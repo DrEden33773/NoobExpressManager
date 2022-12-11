@@ -11,11 +11,6 @@
 
 #include <iostream>
 
-#include <list>
-#include <memory>
-#include <ranges>
-#include <vector>
-
 #include "Resource/Shelf.hpp"
 
 int main(int argc, char** argv) {

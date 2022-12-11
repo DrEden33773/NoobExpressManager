@@ -24,7 +24,6 @@ namespace Shelf {
 using std::cout, std::endl;
 using std::list;
 using std::shared_ptr;
-using std::vector;
 
 using shelf_t = list<::PackageInfo>;
 
@@ -37,20 +36,15 @@ static shared_ptr<shelf_t> big_shelf   = std::make_shared<shelf_t>();
 static shared_ptr<shelf_t> mid_shelf   = std::make_shared<shelf_t>();
 static shared_ptr<shelf_t> small_shelf = std::make_shared<shelf_t>();
 
-void remove_unpicked_packages() {
+static void remove_outdated() {
     using TimeManager::CurrentTime;
 
     auto if_not_outdated = [](const ::PackageInfo& info) {
         return CurrentTime - info.ArrivedTime <= Max_Retention_Time;
     };
 
-    // filt `*big_shelf` by `if_outdated` to `new_big_shelf`
-    auto new_big_shelf = *big_shelf | std::views::filter(if_not_outdated);
-
-    // filt `*mid_shelf` by `if_outdated` to `new_mid_shelf`
-    auto new_mid_shelf = *mid_shelf | std::views::filter(if_not_outdated);
-
-    // filt `*small_shelf` by `if_outdated` to `new_small_shelf`
+    auto new_big_shelf   = *big_shelf | std::views::filter(if_not_outdated);
+    auto new_mid_shelf   = *mid_shelf | std::views::filter(if_not_outdated);
     auto new_small_shelf = *small_shelf | std::views::filter(if_not_outdated);
 
     // assign `new_big_shelf` to `*big_shelf`
@@ -64,9 +58,14 @@ void remove_unpicked_packages() {
     // assign `new_small_shelf` to `*small_shelf`
     small_shelf.reset();
     small_shelf = std::make_shared<shelf_t>(new_small_shelf.begin(), new_small_shelf.end());
+
+    cout << "已移除所有 `过期未取的` 包裹 ";
+    cout << "(当前期限为 " << Max_Retention_Time << " 个时间单位)";
+    cout << endl;
+    cout << endl;
 }
 
-void add_to_big(const ::PackageInfo& info) {
+static void add_to_big(const ::PackageInfo& info) {
     if (big_shelf->size() < Big_Lim) {
         big_shelf->push_back(info);
     } else {
@@ -74,7 +73,7 @@ void add_to_big(const ::PackageInfo& info) {
         cout << endl;
     }
 }
-void add_to_mid(const ::PackageInfo& info) {
+static void add_to_mid(const ::PackageInfo& info) {
     if (mid_shelf->size() < Mid_Lim) {
         mid_shelf->push_back(info);
     } else {
@@ -82,7 +81,7 @@ void add_to_mid(const ::PackageInfo& info) {
         cout << endl;
     }
 }
-void add_to_small(const ::PackageInfo& info) {
+static void add_to_small(const ::PackageInfo& info) {
     if (small_shelf->size() < Small_Lim) {
         small_shelf->push_back(info);
     } else {

@@ -14,6 +14,7 @@
 #include "TimeManager.hpp"
 
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <string_view>
 
@@ -21,6 +22,7 @@ struct PackageInfo {
     using string      = std::string;
     using string_view = std::string_view;
     using fstream     = std::fstream;
+    using ostream     = std::ostream;
 
     static constexpr string_view seperator = " ";
 
@@ -33,6 +35,18 @@ struct PackageInfo {
 
     friend fstream& operator<<(
         fstream&           out,
+        const PackageInfo& info
+    ) {
+        out << info.PackageNumber << seperator;
+        out << info.Name << seperator;
+        out << info.PhoneNumber << seperator;
+        out << info.PackageType << seperator;
+        out << info.ArrivedTime << std::endl;
+        return out;
+    }
+
+    friend ostream& operator<<(
+        ostream&           out,
         const PackageInfo& info
     ) {
         out << info.PackageNumber << seperator;
