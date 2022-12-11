@@ -4,8 +4,6 @@ target("HuffmanCompress")
     set_kind("binary")
     add_files("src/*.cpp")
     set_languages("c17", "c++20")
-    set_languages("c17", "c++20")
-    add_cxflags("-fconcepts-diagnostics-depth=4")
     if is_mode("release") then 
         set_optimize("faster")
     end

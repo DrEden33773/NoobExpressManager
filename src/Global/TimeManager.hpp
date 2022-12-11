@@ -12,16 +12,21 @@
 #pragma once
 
 #include <cstddef>
+#include <iostream>
 
 namespace TimeManager {
 
 using time_t    = size_t;
 using time_type = size_t;
+using std::cout, std::endl;
 
 static time_t CurrentTime = 0;
 
 static void update_time() {
     ++CurrentTime;
+    cout << "已更新时间为: " << CurrentTime;
+    cout << endl;
+    cout << endl;
 }
 
 } // namespace TimeManager
