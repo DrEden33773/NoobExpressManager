@@ -20,4 +20,8 @@ using time_type = size_t;
 
 static time_t CurrentTime = 0;
 
+static void update_time() {
+    ++CurrentTime;
+}
+
 } // namespace TimeManager
