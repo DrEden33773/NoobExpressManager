@@ -27,7 +27,7 @@ using std::string;
 enum class task_t : unsigned short {
     deposit,     /* store a package */
     query,       /* query packages by info */
-    take,        /* pick a package */
+    fetch,       /* pick a package */
     analyze,     /* analyze delivery data */
     time_update, /* update the time (date) */
     exit,        /* exit the program */
@@ -64,7 +64,7 @@ void select_task() {
         } else if (input == "2") {
             // TODO(eden): query
         } else if (input == "3") {
-            // TODO(eden): take
+            // TODO(eden): fetch
         } else if (input == "4") {
             // TODO(eden): analyze
         } else if (input == "5") {
