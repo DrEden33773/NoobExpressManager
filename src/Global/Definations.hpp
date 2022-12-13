@@ -13,6 +13,7 @@
 
 #include "TimeManager.hpp"
 
+#include <compare>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -30,8 +31,15 @@ struct PackageInfo {
     string PackageNumber;
     string Name;
     string PhoneNumber;
-    size_t PackageType = 1;
-    time_t ArrivedTime = 0;
+    size_t PackageSize = 1;
+    time_t DepositTime = 0;
+
+    friend std::strong_ordering operator<=>(
+        const PackageInfo& lhs,
+        const PackageInfo& rhs
+    ) {
+        return lhs.PackageNumber <=> rhs.PackageNumber;
+    }
 
     friend fstream& operator<<(
         fstream&           out,
@@ -40,8 +48,8 @@ struct PackageInfo {
         out << info.PackageNumber << seperator;
         out << info.Name << seperator;
         out << info.PhoneNumber << seperator;
-        out << info.PackageType << seperator;
-        out << info.ArrivedTime << std::endl;
+        out << info.PackageSize << seperator;
+        out << info.DepositTime << std::endl;
         return out;
     }
 
@@ -52,8 +60,8 @@ struct PackageInfo {
         out << info.PackageNumber << seperator;
         out << info.Name << seperator;
         out << info.PhoneNumber << seperator;
-        out << info.PackageType << seperator;
-        out << info.ArrivedTime << std::endl;
+        out << info.PackageSize << seperator;
+        out << info.DepositTime << std::endl;
         return out;
     }
 };

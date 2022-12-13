@@ -12,6 +12,7 @@
 #pragma once
 
 #include "Global/TimeManager.hpp"
+#include "Module/Depositor.hpp"
 #include "Resource/Shelf.hpp"
 
 #include <cstdlib>
@@ -59,7 +60,7 @@ void select_task() {
         auto input = get_input();
         cout << endl;
         if (input == "1") {
-            // TODO(eden): deposit
+            Module::Depositor::deposit();
         } else if (input == "2") {
             // TODO(eden): query
         } else if (input == "3") {

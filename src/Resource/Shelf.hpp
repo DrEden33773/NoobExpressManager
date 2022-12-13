@@ -40,7 +40,7 @@ static void remove_outdated() {
     using TimeManager::CurrentTime;
 
     auto if_not_outdated = [](const ::PackageInfo& info) {
-        return CurrentTime - info.ArrivedTime <= Max_Retention_Time;
+        return CurrentTime - info.DepositTime <= Max_Retention_Time;
     };
 
     auto new_big_shelf   = *big_shelf | std::views::filter(if_not_outdated);
@@ -65,29 +65,74 @@ static void remove_outdated() {
     cout << endl;
 }
 
-static void add_to_big(const ::PackageInfo& info) {
+static auto add_to_big(const ::PackageInfo& info) {
     if (big_shelf->size() < Big_Lim) {
-        big_shelf->push_back(info);
-    } else {
-        cout << "大型货架已满，无法寄存！" << endl;
+        auto it = std::lower_bound(
+            big_shelf->begin(),
+            big_shelf->end(),
+            info
+        );
+        big_shelf->insert(it, info);
+        cout << "已将包裹 " << info.PackageNumber << " 寄存到大型货架" << endl;
         cout << endl;
+        return true;
+    } else {
+        cout << "大型货架已满，无法寄存！本次寄存失败，请选择其他尺寸！" << endl;
+        cout << endl;
+        return false;
     }
+    return false;
 }
-static void add_to_mid(const ::PackageInfo& info) {
+static auto add_to_mid(const ::PackageInfo& info) {
     if (mid_shelf->size() < Mid_Lim) {
-        mid_shelf->push_back(info);
-    } else {
-        cout << "中型货架已满，无法寄存！" << endl;
+        auto it = std::lower_bound(
+            mid_shelf->begin(),
+            mid_shelf->end(),
+            info
+        );
+        mid_shelf->insert(it, info);
+        cout << "已将包裹 " << info.PackageNumber << " 寄存到中型货架" << endl;
         cout << endl;
+        return true;
+    } else {
+        cout << "中型货架已满，无法寄存！本次寄存失败，请选择其他尺寸！" << endl;
+        cout << endl;
+        return false;
     }
+    return false;
 }
-static void add_to_small(const ::PackageInfo& info) {
+static auto add_to_small(const ::PackageInfo& info) {
     if (small_shelf->size() < Small_Lim) {
-        small_shelf->push_back(info);
-    } else {
-        cout << "小型货架已满，无法寄存！" << endl;
+        auto it = std::lower_bound(
+            small_shelf->begin(),
+            small_shelf->end(),
+            info
+        );
+        small_shelf->insert(it, info);
+        cout << "已将包裹 " << info.PackageNumber << " 寄存到小型货架" << endl;
         cout << endl;
+        return true;
+    } else {
+        cout << "小型货架已满，无法寄存！本次寄存失败，请选择其他尺寸！" << endl;
+        cout << endl;
+        return false;
     }
+    return false;
+}
+static auto add_package(const ::PackageInfo& info) {
+    bool if_success = true;
+    switch (info.PackageSize) {
+    case 3:
+        if_success = add_to_big(info);
+        break;
+    case 2:
+        if_success = add_to_mid(info);
+        break;
+    case 1:
+        if_success = add_to_small(info);
+        break;
+    }
+    return if_success;
 }
 
 } // namespace Shelf

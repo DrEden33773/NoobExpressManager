@@ -29,4 +29,8 @@ static void update_time() {
     cout << endl;
 }
 
+static std::string to_string(time_t time) {
+    return std::to_string(time);
+}
+
 } // namespace TimeManager
