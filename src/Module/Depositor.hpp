@@ -11,7 +11,7 @@
 
 #pragma once
 
-#include "../Global/Definations.hpp"
+#include "../Global/PackageInfo.hpp"
 #include "../Global/TimeManager.hpp"
 #include "../Resource/Shelf.hpp"
 
@@ -129,9 +129,9 @@ private:
         string temp_name;
         string temp_phoneNumber;
         string temp_packageSize;
-        cout << "请输入寄件人姓名: ";
+        cout << "请输入取件人姓名: ";
         cin >> temp_name;
-        cout << "请输入寄件人手机号 (11位): ";
+        cout << "请输入取件人手机号 (11位): ";
         cin >> temp_phoneNumber;
         cout << "请输入包裹大小 (1-小, 2-中, 3-大): ";
         cin >> temp_packageSize;

@@ -1,5 +1,5 @@
 /**
- * @file Definations.hpp
+ * @file PackageInfo.hpp
  * @author Eden (edwardwang33773@gmail.com)
  * @brief
  * @version 0.1
@@ -24,10 +24,11 @@ struct PackageInfo {
     using string_view = std::string_view;
     using fstream     = std::fstream;
     using ostream     = std::ostream;
+    using time_t      = TimeManager::time_t;
 
-    static constexpr string_view seperator = " ";
+    static constexpr string_view seperator          = " ";
+    static constexpr time_t      Max_Retention_Time = 2;
 
-    using time_t = TimeManager::time_t;
     string PackageNumber;
     string Name;
     string PhoneNumber;
@@ -52,7 +53,6 @@ struct PackageInfo {
         out << info.DepositTime << std::endl;
         return out;
     }
-
     friend ostream& operator<<(
         ostream&           out,
         const PackageInfo& info
@@ -63,5 +63,19 @@ struct PackageInfo {
         out << info.PackageSize << seperator;
         out << info.DepositTime << std::endl;
         return out;
+    }
+
+    static bool if_not_outdated(const PackageInfo& info) {
+        using TimeManager::CurrentTime;
+        return CurrentTime - info.DepositTime <= Max_Retention_Time;
+    }
+    [[nodiscard]] bool if_same_name(const string& name) const {
+        return Name == name;
+    }
+    [[nodiscard]] bool if_same_phoneNumber(const string& phoneNumber) const {
+        return PhoneNumber == phoneNumber;
+    }
+    [[nodiscard]] bool if_same_packageNumber(const string& packageNumber) const {
+        return PackageNumber == packageNumber;
     }
 };
