@@ -160,7 +160,7 @@ private:
         cout << "下面尝试为您寄存包裹..." << endl;
         cout << endl;
 
-        ::PackageInfo toDeposit {
+        PackageInfo toDeposit {
             .PackageNumber = packageNumber,
             .Name          = name,
             .PhoneNumber   = phoneNumber,

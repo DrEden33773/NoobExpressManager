@@ -28,7 +28,7 @@ using std::shared_ptr;
 using std::string;
 using std::unordered_map;
 
-using shelf_t = list<::PackageInfo>;
+using shelf_t = list<PackageInfo>;
 
 static constexpr size_t Big_Lim   = 50;
 static constexpr size_t Mid_Lim   = 100;
@@ -74,7 +74,7 @@ static void remove_outdated() {
     cout << endl;
 }
 
-static auto add_to_big(const ::PackageInfo& info) {
+static auto add_to_big(const PackageInfo& info) {
     if (big_shelf->size() < Big_Lim) {
         auto it = std::lower_bound(
             big_shelf->begin(),
@@ -92,7 +92,7 @@ static auto add_to_big(const ::PackageInfo& info) {
     }
     return false;
 }
-static auto add_to_mid(const ::PackageInfo& info) {
+static auto add_to_mid(const PackageInfo& info) {
     if (mid_shelf->size() < Mid_Lim) {
         auto it = std::lower_bound(
             mid_shelf->begin(),
@@ -110,7 +110,7 @@ static auto add_to_mid(const ::PackageInfo& info) {
     }
     return false;
 }
-static auto add_to_small(const ::PackageInfo& info) {
+static auto add_to_small(const PackageInfo& info) {
     if (small_shelf->size() < Small_Lim) {
         auto it = std::lower_bound(
             small_shelf->begin(),
@@ -128,7 +128,7 @@ static auto add_to_small(const ::PackageInfo& info) {
     }
     return false;
 }
-static auto add_package(const ::PackageInfo& info) {
+static auto add_package(const PackageInfo& info) {
     bool if_success = true;
     switch (info.PackageSize) {
     case 3:
@@ -146,7 +146,7 @@ static auto add_package(const ::PackageInfo& info) {
 
 static auto merge_satisfied_phoneNumber(const string& phoneNumber) {
     auto if_same_PhoneNumber =
-        [&phoneNumber](const ::PackageInfo& info) {
+        [&phoneNumber](const PackageInfo& info) {
             return info.if_same_name(phoneNumber);
         };
 
@@ -178,7 +178,7 @@ static auto merge_satisfied_phoneNumber(const string& phoneNumber) {
 }
 static auto merge_satisfied_name(const string& name) {
     auto if_same_name =
-        [&name](const ::PackageInfo& info) {
+        [&name](const PackageInfo& info) {
             return info.if_same_name(name);
         };
 
@@ -213,9 +213,9 @@ static auto get_name_by_packageNumber(const string& packageNumToQuery) {
     using shelf_it_map_t = unordered_map<shared_ptr<shelf_t>, it_t>;
 
     shelf_it_map_t shelf_it_map {
-        { big_shelf, big_shelf->begin() },
-        { mid_shelf, mid_shelf->begin() },
-        { small_shelf, small_shelf->begin() },
+        { big_shelf, big_shelf->end() },
+        { mid_shelf, mid_shelf->end() },
+        { small_shelf, small_shelf->end() },
     };
     string name;
 
@@ -223,7 +223,7 @@ static auto get_name_by_packageNumber(const string& packageNumToQuery) {
         it = std::find_if(
             it,
             shelf->end(),
-            [&packageNumToQuery](const ::PackageInfo& info) {
+            [&packageNumToQuery](const PackageInfo& info) {
                 return info.if_same_packageNumber(packageNumToQuery);
             }
         );
