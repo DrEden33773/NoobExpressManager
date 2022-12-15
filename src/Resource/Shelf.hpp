@@ -68,7 +68,7 @@ static void remove_outdated() {
         new_small_shelf.end()
     );
 
-    cout << "已移除所有 `过期未取的` 包裹 ";
+    cout << "已移除所有 `过期未取的` 包裹 " << endl;
     cout << "(当前期限为 " << PackageInfo::Max_Retention_Time << " 个时间单位)";
     cout << endl;
     cout << endl;
@@ -147,7 +147,7 @@ static auto add_package(const PackageInfo& info) {
 static auto merge_satisfied_phoneNumber(const string& phoneNumber) {
     auto if_same_PhoneNumber =
         [&phoneNumber](const PackageInfo& info) {
-            return info.if_same_name(phoneNumber);
+            return info.if_same_phoneNumber(phoneNumber);
         };
 
     auto new_big_shelf = *big_shelf

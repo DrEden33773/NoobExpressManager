@@ -11,8 +11,9 @@
 
 #include <iostream>
 
-#include "Resource/Shelf.hpp"
+#include "TaskManager.hpp"
 
 int main(int argc, char** argv) {
+    Tasks::select_task();
     return 0;
 }

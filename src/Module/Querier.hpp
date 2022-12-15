@@ -46,6 +46,7 @@ private:
     string get_input_mode() {
         string ret;
         cin >> ret;
+        cout << endl;
         return ret;
     }
     void query_mode_selector() {
@@ -63,6 +64,7 @@ private:
                 break;
             } else {
                 cout << "未实现功能，请重新输入..." << endl;
+                cout << endl;
             }
         }
     }
@@ -72,6 +74,8 @@ private:
         cout << "请输入姓名 >>> ";
         cin >> nameToQuery;
         auto satisfied = Shelf ::merge_satisfied_name(nameToQuery);
+
+        cout << endl;
 
         if (satisfied.empty()) {
             cout << "未找到对应姓名的包裹" << endl;
@@ -87,6 +91,8 @@ private:
         cout << "请输入电话 >>> ";
         cin >> phoneToQuery;
         auto satisfied = Shelf::merge_satisfied_phoneNumber(phoneToQuery);
+
+        cout << endl;
 
         if (satisfied.empty()) {
             cout << "未找到对应电话的包裹" << endl;
@@ -104,6 +110,8 @@ private:
         auto matched_name = Shelf::get_name_by_packageNumber(packageNumToQuery);
         auto satisfied    = Shelf::merge_satisfied_name(matched_name);
 
+        cout << endl;
+
         if (satisfied.empty()) {
             cout << "未找到包裹号对应的取件人的包裹" << endl;
         } else {
@@ -112,6 +120,7 @@ private:
                 cout << "\t" << package << endl;
             }
         }
+        cout << endl;
     }
 
 public:
