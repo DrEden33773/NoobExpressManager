@@ -17,14 +17,12 @@
 
 #include <cstdlib>
 #include <functional>
-#include <unordered_map>
 #include <utility>
 
 namespace Module {
 
 using std::cout, std::cin, std::endl;
 using std::string;
-using std::unordered_map;
 using TimeManager::time_t;
 
 class Querier {
@@ -52,14 +50,14 @@ private:
     void query_mode_selector() {
         while (true) {
             input_query_mode();
-            auto input = get_input_mode();
-            if (input == "1") {
+            auto mode = get_input_mode();
+            if (mode == "1") {
                 query_by_name();
                 break;
-            } else if (input == "2") {
+            } else if (mode == "2") {
                 query_by_phone();
                 break;
-            } else if (input == "3") {
+            } else if (mode == "3") {
                 query_by_package_num();
                 break;
             } else {

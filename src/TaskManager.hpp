@@ -13,6 +13,7 @@
 
 #include "Global/TimeManager.hpp"
 #include "Module/Depositor.hpp"
+#include "Module/Fetcher.hpp"
 #include "Module/Querier.hpp"
 #include "Resource/Shelf.hpp"
 
@@ -65,7 +66,7 @@ void select_task() {
         } else if (input == "2") {
             Module::Querier::query();
         } else if (input == "3") {
-            // TODO(eden): fetch
+            Module::Fetcher::fetch();
         } else if (input == "4") {
             // TODO(eden): analyze
         } else if (input == "5") {

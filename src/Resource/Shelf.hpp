@@ -18,12 +18,16 @@
 #include <functional>
 #include <list>
 #include <memory>
+#include <optional>
 #include <ranges>
+#include <utility>
 
 namespace Shelf {
 
 using std::cout, std::endl;
 using std::list;
+using std::nullopt;
+using std::optional;
 using std::shared_ptr;
 using std::string;
 using std::unordered_map;
@@ -48,21 +52,18 @@ static void remove_outdated() {
         | std::views::filter(PackageInfo::if_not_outdated);
 
     // assign `new_big_shelf` to `*big_shelf`
-    // big_shelf.reset();
     big_shelf = std::make_shared<shelf_t>(
         new_big_shelf.begin(),
         new_big_shelf.end()
     );
 
     // assign `new_mid_shelf` to `*mid_shelf`
-    // mid_shelf.reset();
     mid_shelf = std::make_shared<shelf_t>(
         new_mid_shelf.begin(),
         new_mid_shelf.end()
     );
 
     // assign `new_small_shelf` to `*small_shelf`
-    // small_shelf.reset();
     small_shelf = std::make_shared<shelf_t>(
         new_small_shelf.begin(),
         new_small_shelf.end()
@@ -208,7 +209,8 @@ static auto merge_satisfied_name(const string& name) {
     // return
     return new_shelf;
 }
-static auto get_name_by_packageNumber(const string& packageNumToQuery) {
+
+static auto get_name_by_packageNumber(const string& packageNumber) {
     using it_t           = decltype(big_shelf->begin());
     using shelf_it_map_t = unordered_map<shared_ptr<shelf_t>, it_t>;
 
@@ -223,8 +225,8 @@ static auto get_name_by_packageNumber(const string& packageNumToQuery) {
         it = std::find_if(
             it,
             shelf->end(),
-            [&packageNumToQuery](const PackageInfo& info) {
-                return info.if_same_packageNumber(packageNumToQuery);
+            [&packageNumber](const PackageInfo& info) {
+                return info.if_same_packageNumber(packageNumber);
             }
         );
         if (it != shelf->end()) {
@@ -233,6 +235,98 @@ static auto get_name_by_packageNumber(const string& packageNumToQuery) {
         }
     }
     return name;
+}
+static auto get_phone_by_packageNumber(const string& packageNumber) {
+    using it_t           = decltype(big_shelf->begin());
+    using shelf_it_map_t = unordered_map<shared_ptr<shelf_t>, it_t>;
+
+    shelf_it_map_t shelf_it_map {
+        { big_shelf, big_shelf->end() },
+        { mid_shelf, mid_shelf->end() },
+        { small_shelf, small_shelf->end() },
+    };
+    string phone;
+
+    for (auto& [shelf, it] : shelf_it_map) {
+        it = std::find_if(
+            shelf->begin(),
+            shelf->end(),
+            [&packageNumber](const PackageInfo& info) {
+                return info.if_same_packageNumber(packageNumber);
+            }
+        );
+        if (it != shelf->end()) {
+            phone = it->PhoneNumber;
+            break;
+        }
+    }
+    return phone;
+}
+
+static auto fetch_all_by_phone(const string& phoneNumber) {
+    auto fetched = merge_satisfied_phoneNumber(phoneNumber);
+
+    auto if_not_same_PhoneNumber =
+        [&phoneNumber](const PackageInfo& info) {
+            return !info.if_same_phoneNumber(phoneNumber);
+        };
+
+    auto new_big_shelf = *big_shelf
+        | std::views::filter(if_not_same_PhoneNumber);
+    auto new_mid_shelf = *mid_shelf
+        | std::views::filter(if_not_same_PhoneNumber);
+    auto new_small_shelf = *small_shelf
+        | std::views::filter(if_not_same_PhoneNumber);
+
+    // assign `new_big_shelf` to `*big_shelf`
+    big_shelf = std::make_shared<shelf_t>(
+        new_big_shelf.begin(),
+        new_big_shelf.end()
+    );
+
+    // assign `new_mid_shelf` to `*mid_shelf`
+    mid_shelf = std::make_shared<shelf_t>(
+        new_mid_shelf.begin(),
+        new_mid_shelf.end()
+    );
+
+    // assign `new_small_shelf` to `*small_shelf`
+    small_shelf = std::make_shared<shelf_t>(
+        new_small_shelf.begin(),
+        new_small_shelf.end()
+    );
+
+    return fetched;
+}
+static auto fetch_one_by_packageNumber(const string& packageNumber) {
+    using it_t           = decltype(big_shelf->begin());
+    using shelf_it_map_t = unordered_map<shared_ptr<shelf_t>, it_t>;
+
+    shelf_it_map_t shelf_it_map {
+        { big_shelf, big_shelf->end() },
+        { mid_shelf, mid_shelf->end() },
+        { small_shelf, small_shelf->end() },
+    };
+
+    bool                  if_found = false;
+    optional<PackageInfo> fetched  = nullopt;
+
+    for (auto& [shelf, it] : shelf_it_map) {
+        it = std::find_if(
+            shelf->begin(),
+            shelf->end(),
+            [&packageNumber](const PackageInfo& info) {
+                return info.if_same_packageNumber(packageNumber);
+            }
+        );
+        if (it != shelf->end()) {
+            shelf->erase(it);
+            fetched = *it;
+            break;
+        }
+    }
+
+    return std::make_pair(if_found, fetched);
 }
 
 } // namespace Shelf
