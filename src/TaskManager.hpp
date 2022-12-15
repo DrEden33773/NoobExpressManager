@@ -70,7 +70,7 @@ void select_task() {
             // TODO(eden): analyze
         } else if (input == "5") {
             TimeManager::update_time();
-            Shelf::remove_outdated(); // BUG
+            Shelf::remove_outdated();
         } else if (input == "6") {
             cout << "谢谢使用..." << endl;
             cout << endl;

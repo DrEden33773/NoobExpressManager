@@ -50,7 +50,7 @@ struct PackageInfo {
         out << info.Name << seperator;
         out << info.PhoneNumber << seperator;
         out << info.PackageSize << seperator;
-        out << info.DepositTime << std::endl;
+        out << info.DepositTime << seperator;
         return out;
     }
     friend ostream& operator<<(
@@ -61,7 +61,7 @@ struct PackageInfo {
         out << info.Name << seperator;
         out << info.PhoneNumber << seperator;
         out << info.PackageSize << seperator;
-        out << info.DepositTime << std::endl;
+        out << info.DepositTime << seperator;
         return out;
     }
 

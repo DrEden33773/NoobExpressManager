@@ -48,21 +48,21 @@ static void remove_outdated() {
         | std::views::filter(PackageInfo::if_not_outdated);
 
     // assign `new_big_shelf` to `*big_shelf`
-    big_shelf.reset();
+    // big_shelf.reset();
     big_shelf = std::make_shared<shelf_t>(
         new_big_shelf.begin(),
         new_big_shelf.end()
     );
 
     // assign `new_mid_shelf` to `*mid_shelf`
-    mid_shelf.reset();
+    // mid_shelf.reset();
     mid_shelf = std::make_shared<shelf_t>(
         new_mid_shelf.begin(),
         new_mid_shelf.end()
     );
 
     // assign `new_small_shelf` to `*small_shelf`
-    small_shelf.reset();
+    // small_shelf.reset();
     small_shelf = std::make_shared<shelf_t>(
         new_small_shelf.begin(),
         new_small_shelf.end()
