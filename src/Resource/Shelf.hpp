@@ -42,6 +42,11 @@ static shared_ptr<shelf_t> big_shelf   = std::make_shared<shelf_t>();
 static shared_ptr<shelf_t> mid_shelf   = std::make_shared<shelf_t>();
 static shared_ptr<shelf_t> small_shelf = std::make_shared<shelf_t>();
 
+/**
+ * @brief remove outdated packages
+ *
+ */
+
 static void remove_outdated() {
     // filt
     auto new_big_shelf = *big_shelf
@@ -74,6 +79,11 @@ static void remove_outdated() {
     cout << endl;
     cout << endl;
 }
+
+/**
+ * @brief add package function set
+ *
+ */
 
 static auto add_to_big(const PackageInfo& info) {
     if (big_shelf->size() < Big_Lim) {
@@ -145,6 +155,11 @@ static auto add_package(const PackageInfo& info) {
     return if_success;
 }
 
+/**
+ * @brief Merge package function set
+ *
+ */
+
 static auto merge_satisfied_phoneNumber(const string& phoneNumber) {
     auto if_same_PhoneNumber =
         [&phoneNumber](const PackageInfo& info) {
@@ -210,6 +225,11 @@ static auto merge_satisfied_name(const string& name) {
     return new_shelf;
 }
 
+/**
+ * @brief Indexer (get name/phone by packageNumber)
+ *
+ */
+
 static auto get_name_by_packageNumber(const string& packageNumber) {
     using it_t           = decltype(big_shelf->begin());
     using shelf_it_map_t = unordered_map<shared_ptr<shelf_t>, it_t>;
@@ -262,6 +282,11 @@ static auto get_phone_by_packageNumber(const string& packageNumber) {
     }
     return phone;
 }
+
+/**
+ * @brief Fetch package function set
+ *
+ */
 
 static auto fetch_all_by_phone(const string& phoneNumber) {
     auto fetched = merge_satisfied_phoneNumber(phoneNumber);
@@ -328,6 +353,11 @@ static auto fetch_one_by_packageNumber(const string& packageNumber) {
 
     return std::make_pair(if_found, fetched);
 }
+
+/**
+ * @brief show shelf function set
+ *
+ */
 
 static void show_big_shelf() {
     if (big_shelf->empty()) {
