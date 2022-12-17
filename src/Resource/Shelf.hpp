@@ -329,4 +329,43 @@ static auto fetch_one_by_packageNumber(const string& packageNumber) {
     return std::make_pair(if_found, fetched);
 }
 
+static void show_big_shelf() {
+    if (big_shelf->empty()) {
+        cout << "大型货架中暂时没有包裹" << endl;
+    } else {
+        cout << "大型货架中的包裹信息如下：" << endl;
+        for (const auto& package : *big_shelf) {
+            cout << package << endl;
+        }
+    }
+    cout << endl;
+}
+static void show_mid_shelf() {
+    if (mid_shelf->empty()) {
+        cout << "中型货架中暂时没有包裹" << endl;
+    } else {
+        cout << "中型货架中的包裹信息如下：" << endl;
+        for (const auto& package : *mid_shelf) {
+            cout << package << endl;
+        }
+    }
+    cout << endl;
+}
+static void show_small_shelf() {
+    if (small_shelf->empty()) {
+        cout << "小型货架中暂时没有包裹" << endl;
+    } else {
+        cout << "小型货架中的包裹信息如下：" << endl;
+        for (const auto& package : *small_shelf) {
+            cout << package << endl;
+        }
+    }
+    cout << endl;
+}
+static void show_all_shelf() {
+    Shelf::show_big_shelf();
+    Shelf::show_mid_shelf();
+    Shelf::show_small_shelf();
+}
+
 } // namespace Shelf
