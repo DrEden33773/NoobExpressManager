@@ -49,23 +49,29 @@ class Depositor {
         static constexpr size_t phoneNumber_len = 11;
         if (phoneNumber.size() != phoneNumber_len) {
             info_validness_map["手机号"] = false;
+        } else {
+            info_validness_map["手机号"] = true;
         }
     }
     void check_packageSize_validness() {
         if (packageSize > 3 || packageSize < 1) {
             info_validness_map["包裹大小"] = false;
+        } else {
+            info_validness_map["包裹大小"] = true;
         }
     }
     void check_depositDate_validness() {
         if (depositDate < TimeManager::CurrentTime) {
             info_validness_map["寄存日期"] = false;
+        } else {
+            info_validness_map["寄存日期"] = true;
         }
     }
 
 private:
     /**
      * @brief generate the package number =>
-     *      包裹类型 - `手机号后四位 + 日期 + 三位随机数`
+     *      包裹类型 - $ `手机号后四位 + 日期 + 三位随机数`
      */
     void generate_packageNumber() {
         static constexpr size_t phoneNumber_len = 11;
