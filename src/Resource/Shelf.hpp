@@ -243,7 +243,7 @@ static auto get_name_by_packageNumber(const string& packageNumber) {
 
     for (auto& [shelf, it] : shelf_it_map) {
         it = std::find_if(
-            it,
+            shelf->begin(),
             shelf->end(),
             [&packageNumber](const PackageInfo& info) {
                 return info.if_same_packageNumber(packageNumber);
