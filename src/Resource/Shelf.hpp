@@ -346,7 +346,8 @@ static auto fetch_one_by_packageNumber(const string& packageNumber) {
         );
         if (it != shelf->end()) {
             shelf->erase(it);
-            fetched = *it;
+            if_found = true;
+            fetched  = *it;
             break;
         }
     }
@@ -365,7 +366,7 @@ static void show_big_shelf() {
     } else {
         cout << "大型货架中的包裹信息如下：" << endl;
         for (const auto& package : *big_shelf) {
-            cout << package << endl;
+            cout << "\t" << package << endl;
         }
     }
     cout << endl;
@@ -376,7 +377,7 @@ static void show_mid_shelf() {
     } else {
         cout << "中型货架中的包裹信息如下：" << endl;
         for (const auto& package : *mid_shelf) {
-            cout << package << endl;
+            cout << "\t" << package << endl;
         }
     }
     cout << endl;
@@ -387,7 +388,7 @@ static void show_small_shelf() {
     } else {
         cout << "小型货架中的包裹信息如下：" << endl;
         for (const auto& package : *small_shelf) {
-            cout << package << endl;
+            cout << "\t" << package << endl;
         }
     }
     cout << endl;

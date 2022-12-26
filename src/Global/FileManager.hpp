@@ -70,6 +70,8 @@ static void dir_init() {
     std::cout << std::endl;
 }
 static void detail_file_init() {
+    /// @attention this will clean `detail.txt` during each run
+
     using std::cout;
     using std::endl;
     using std::fstream;
@@ -79,9 +81,13 @@ static void detail_file_init() {
     if (!detail.is_open()) {
         throw std::runtime_error("Cannot create `detail.txt`!");
     }
+    detail.close();
     cout << "Successfully => Init(Reset) `detail.txt`" << endl;
     cout << endl;
-    detail.close();
+}
+static void init_all() {
+    dir_init();
+    detail_file_init();
 }
 
 } // namespace FileManager

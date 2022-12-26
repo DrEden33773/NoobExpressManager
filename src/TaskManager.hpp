@@ -12,6 +12,7 @@
 #pragma once
 
 #include "Global/TimeManager.hpp"
+#include "Module/Analyzer.hpp"
 #include "Module/Depositor.hpp"
 #include "Module/Fetcher.hpp"
 #include "Module/Querier.hpp"
@@ -68,7 +69,7 @@ void select_task() {
         } else if (input == "3") {
             Module::Fetcher::fetch();
         } else if (input == "4") {
-            // TODO(eden): analyze
+            Module::Analyzer::analyze();
         } else if (input == "5") {
             TimeManager::update_time();
             Shelf::remove_outdated();
