@@ -15,6 +15,7 @@
 
 #include <compare>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <string_view>
@@ -28,6 +29,7 @@ struct PackageInfo {
 
     static constexpr string_view seperator          = " ";
     static constexpr time_t      Max_Retention_Time = 2;
+    static constexpr string_view identifier         = "包裹号 姓名 电话号码 包裹大小 寄存日期";
 
     string PackageNumber;
     string Name;

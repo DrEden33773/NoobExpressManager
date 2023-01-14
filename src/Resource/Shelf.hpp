@@ -365,6 +365,7 @@ static void show_big_shelf() {
         cout << "大型货架中暂时没有包裹" << endl;
     } else {
         cout << "大型货架中的包裹信息如下：" << endl;
+        cout << "\t" << PackageInfo::identifier << endl;
         for (const auto& package : *big_shelf) {
             cout << "\t" << package << endl;
         }
@@ -376,6 +377,7 @@ static void show_mid_shelf() {
         cout << "中型货架中暂时没有包裹" << endl;
     } else {
         cout << "中型货架中的包裹信息如下：" << endl;
+        cout << "\t" << PackageInfo::identifier << endl;
         for (const auto& package : *mid_shelf) {
             cout << "\t" << package << endl;
         }
@@ -387,6 +389,7 @@ static void show_small_shelf() {
         cout << "小型货架中暂时没有包裹" << endl;
     } else {
         cout << "小型货架中的包裹信息如下：" << endl;
+        cout << "\t" << PackageInfo::identifier << endl;
         for (const auto& package : *small_shelf) {
             cout << "\t" << package << endl;
         }

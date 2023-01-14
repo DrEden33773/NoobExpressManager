@@ -44,6 +44,7 @@ private:
             cout << "未查询到包裹号！没有取出任何包裹！" << endl;
         } else {
             cout << "成功取出包裹！取出的包裹信息如下：" << endl;
+            cout << "\t" << PackageInfo::identifier << endl;
             cout << "\t" << *(the_fetched.second) << endl;
         }
         cout << endl;
@@ -58,6 +59,7 @@ private:
             cout << "未查询到电话号码！没有取出任何包裹！" << endl;
         } else {
             cout << "成功取出包裹！取出的包裹信息如下：" << endl;
+            cout << "\t" << PackageInfo::identifier << endl;
             for (const auto& package : all_fetched) {
                 cout << "\t" << package << endl;
             }
@@ -75,6 +77,7 @@ private:
             cout << "未查询到包裹号！没有取出任何包裹！" << endl;
         } else {
             cout << "成功取出包裹！取出的包裹信息如下：" << endl;
+            cout << "\t" << PackageInfo::identifier << endl;
             for (const auto& package : all_fetched) {
                 cout << "\t" << package << endl;
             }

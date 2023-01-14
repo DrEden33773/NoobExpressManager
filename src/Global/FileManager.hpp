@@ -28,7 +28,8 @@ namespace Dir {
 } // namespace Path
 
 namespace Filename {
-    static const fs::path DetailFile = Dir::Root / "details.txt";
+    static const fs::path ActionLog = Dir::Root / "action_log.txt";
+    static const fs::path ShelfLog  = Dir::Root / "shelf_log.txt";
 } // namespace Filename
 
 /* all_path in a vec */
@@ -69,25 +70,34 @@ static void dir_init() {
     std::cout << "Dir_Init Succeeded!" << std::endl;
     std::cout << std::endl;
 }
-static void detail_file_init() {
+static void log_file_init() {
     /// @attention this will clean `detail.txt` during each run
 
     using std::cout;
     using std::endl;
     using std::fstream;
 
-    fstream detail;
-    detail.open(Filename::DetailFile, fstream::out | fstream::trunc);
-    if (!detail.is_open()) {
-        throw std::runtime_error("Cannot create `detail.txt`!");
+    fstream action_file;
+    action_file.open(Filename::ActionLog, fstream::out | fstream::trunc);
+    if (!action_file.is_open()) {
+        throw std::runtime_error("Cannot create `action_log.txt`!");
     }
-    detail.close();
-    cout << "Successfully => Init(Reset) `detail.txt`" << endl;
+    action_file.close();
+    cout << "Successfully => Init `action_log.txt`" << endl;
+    cout << endl;
+
+    fstream shelf_file;
+    shelf_file.open(Filename::ShelfLog, fstream::out | fstream::trunc);
+    if (!shelf_file.is_open()) {
+        throw std::runtime_error("Cannot create `shelf_log.txt`!");
+    }
+    shelf_file.close();
+    cout << "Successfully => Init `shelf_log.txt`" << endl;
     cout << endl;
 }
 static void init_all() {
     dir_init();
-    detail_file_init();
+    log_file_init();
 }
 
 } // namespace FileManager

@@ -79,6 +79,7 @@ private:
             cout << "未找到对应姓名的包裹" << endl;
         } else {
             cout << "找到如下包裹:" << endl;
+            cout << "\t" << PackageInfo::identifier << endl;
             for (const auto& package : satisfied) {
                 cout << "\t" << package << endl;
             }
@@ -96,6 +97,7 @@ private:
             cout << "未找到对应电话的包裹" << endl;
         } else {
             cout << "找到如下包裹:" << endl;
+            cout << "\t" << PackageInfo::identifier << endl;
             for (const auto& package : satisfied) {
                 cout << "\t" << package << endl;
             }
@@ -114,6 +116,7 @@ private:
             cout << "未找到包裹号对应的取件人的包裹" << endl;
         } else {
             cout << "找到如下包裹:" << endl;
+            cout << "\t" << PackageInfo::identifier << endl;
             for (const auto& package : satisfied) {
                 cout << "\t" << package << endl;
             }
